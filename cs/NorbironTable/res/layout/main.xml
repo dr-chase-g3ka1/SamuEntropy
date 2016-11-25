@@ -1,11 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/rela"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-    <batfai.samuentropy.brainboard7.NorbironSurfaceView
+                android:layout_height="match_parent"
+                android:layout_margin="0dp">
+<batfai.samuentropy.brainboard7.NorbironSurfaceView
         xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/norsurf"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_weight = "0"/>
+
+ <LinearLayout 
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_height"
+        android:layout_alignParentBottom = "true"
+        android:layout_gravity = "center"
+        android:gravity = "bottom"
+        android:orientation="vertical"
+        >
+    <LinearLayout
+        android:id="@+id/bottom_child"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bchild_height"
+        android:gravity = "center"
+        android:background="#FFFF9800"
+        >
+
+        <ImageView 
+            android:id="@+id/nandironproci"
+            android:src="@drawable/nandironproci"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight = "1"
+           />
+        <ImageView 
+            android:id="@+id/matyironproci"
+            android:src="@drawable/matyironproci"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight = "1"
+           />
+        <ImageView 
+            android:id="@+id/gretironproci"
+            android:src="@drawable/gretironproci"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight = "1"
+            />
+         <ImageView 
+            android:id="@+id/nandironproci2"
+            android:src="@drawable/nandironproci2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+             android:layout_weight = "1"
+           />
+        <ImageView 
+            android:id="@+id/matyironproci2"
+            android:src="@drawable/matyironproci2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight = "1"
+           />
+        <ImageView 
+            android:id="@+id/gretironproci2"
+            android:src="@drawable/gretironproci2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight = "1"
+            />
+        </LinearLayout>
+    <Button
+        android:id="@+id/buttonD"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:textSize = "@dimen/font_size"
+        android:text="+"
+        android:gravity = "center"
+        android:layout_gravity = "center"
+        android:background ="#FFFF9800"
+        android:textColor="#FFFFFFFF"
+
+     />
+</LinearLayout>
+
+
+
 </RelativeLayout>

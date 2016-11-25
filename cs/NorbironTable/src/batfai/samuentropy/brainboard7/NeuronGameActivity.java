@@ -39,16 +39,149 @@
  */
 package batfai.samuentropy.brainboard7;
 
+
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Button;
+import android.view.View.OnClickListener;
+import android.view.DragEvent;
+import android.view.View.DragShadowBuilder;
+import android.view.View.OnDragListener;
+import android.view.View.OnTouchListener;
+import android.content.ClipData;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
+
 /**
  *
  * @author nbatfai
  */
 public class NeuronGameActivity extends android.app.Activity {
-
+    private NorbironSurfaceView nSView;
+    private LinearLayout bottom;
+    private LinearLayout bottom_child;
+    private boolean up;
+    private Animation animUp;
+    private Animation animDown;
+    
     @Override
     public void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-                
+
+    findViewById(R.id.nandironproci).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.matyironproci).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.gretironproci).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.nandironproci2).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.matyironproci2).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.gretironproci2).setOnTouchListener(new MyTouchListener());
+        findViewById(R.id.rela).setOnDragListener(new MyDragListener());
+        
+        nSView = (NorbironSurfaceView) findViewById(R.id.norsurf);
+        bottom = (LinearLayout) findViewById(R.id.bottom);
+        bottom.setOnDragListener(new MyDragListener());
+        bottom_child = (LinearLayout) findViewById(R.id.bottom_child);
+        bottom_child.setVisibility(View.GONE);
+        
+        animUp = AnimationUtils.loadAnimation(this, R.anim.anim_up);
+        animDown = AnimationUtils.loadAnimation(this, R.anim.anim_down);
+        animDown.setAnimationListener(new AnimationListener() {         
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            bottom_child.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) { }
+
+        @Override
+        public void onAnimationStart(Animation animation) { }
+    });
+        
+    final Button button = (Button) findViewById(R.id.buttonD);
+         button.setOnClickListener(new View.OnClickListener() {
+             public void onClick(View v) {
+                 if(up){
+                    bottom_child.startAnimation(animDown);
+                    up = false;
+                }else{
+                    bottom_child.setVisibility(View.VISIBLE);
+                    bottom_child.startAnimation(animUp);
+                    up = true;
+                 }
+             }
+         });
+    
     }
+    
+    private final class MyTouchListener implements OnTouchListener {
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                ClipData data = ClipData.newPlainText("", "");
+                DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(
+                        view);
+                view.startDrag(data, shadowBuilder, view, 0);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
+    class MyDragListener implements OnDragListener {
+
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            if(v.getId() == R.id.bottom)
+                return true;
+            int action = event.getAction();
+            switch (action) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    
+                    break;
+                case DragEvent.ACTION_DROP:
+                    View view = (View) event.getLocalState();
+                    if(view == null)
+                        return true;
+                    float x = event.getX();
+                    float y = event.getY();
+                        switch (view.getId()) {
+                            case R.id.nandironproci:
+                                nSView.newIron(0, x, y);
+                                break;
+                            case R.id.nandironproci2:
+                                nSView.newIron(1, x, y);
+                                break;
+                            case R.id.matyironproci:
+                                nSView.newIron(2, x, y);
+                                break;
+                            case R.id.matyironproci2:
+                                nSView.newIron(3, x, y);
+                                break;
+                            case R.id.gretironproci:
+                                nSView.newIron(5, x, y);
+                                break;
+                            case R.id.gretironproci2:
+                                nSView.newIron(4, x, y);
+                                break;
+                        }
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+    }
+    
+    
 }

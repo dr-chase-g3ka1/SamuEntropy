@@ -37,6 +37,7 @@
  *
  * 0.0.1, 6 Oct 16.
  */
+
 package batfai.samuentropy.brainboard7;
 
 /**
@@ -52,12 +53,13 @@ public class NeuronBox implements Cloneable {
     android.graphics.Rect to;
     private int boxWidth;
     private int boxHeight;
-    private int x;
-    private int y;
-    int numberOfNeurons;
+    public int x;
+    public int y;
+    public int numberOfNeurons;
     protected static android.graphics.Paint boxPaint = new android.graphics.Paint();
     protected static android.graphics.Paint selectedBoxPaint = new android.graphics.Paint();
     protected int selectedBoxPaintSize = 0;
+    public int covertype;
 
     protected boolean open = false;
     protected boolean selected = false;
@@ -66,7 +68,7 @@ public class NeuronBox implements Cloneable {
 
     public NeuronBox(android.graphics.Bitmap tiles, int length, int width, int height,
             int numberOfNeurons,
-            android.graphics.Bitmap cover, int x, int y) {
+            android.graphics.Bitmap cover, int x, int y, int covertype) {
         this.x = x;
         this.y = y;
         this.tiles = tiles;
@@ -74,6 +76,7 @@ public class NeuronBox implements Cloneable {
         this.cover = cover;
         this.boxWidth = cover.getWidth();
         this.boxHeight = cover.getHeight();
+        this.covertype = covertype;
 
         to = new android.graphics.Rect(0, 0, boxWidth, boxHeight);
 
